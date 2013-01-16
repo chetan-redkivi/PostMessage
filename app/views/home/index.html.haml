@@ -48,6 +48,6 @@
             Add Message
           %br
           = text_area_tag "message","",:style=>"width: 457px; height: 88px;background: none repeat scroll 0 0 white !important;"
-    = submit_tag 'Post to Selected',:class => "button"
+    = submit_tag 'Post on selected wall(s)',:class => "button"
 - else
   = link_to "Click Here to Use this App",user_omniauth_authorize_path(:facebook)

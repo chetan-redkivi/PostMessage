@@ -4684,7 +4684,7 @@ body {
   -webkit-border-radius: 6px;
   -webkit-box-shadow: #6E7849 0 0 10px;
   -webkit-transition: transform 0.1s ease;
-  background-color: #3B5998;
+  background-color: #3B5998 !important;
   background-image: -moz-linear-gradient(90deg, #3B5998, #3B5998);
   background-image: -ms-linear-gradient(90deg, #3B5998, #3B5998);
   background-image: -o-linear-gradient(90deg, #3B5998, #3B5998);
@@ -4693,7 +4693,7 @@ body {
   border-radius: 6px;
   border: 2px solid #3B5998;
   box-shadow: #002C84 0px 0px 10px;
-  color: #ffffff;
+  color: #ffffff !important;
   display: inline-block;
   font-family: Arial;
   font-size: 1em;

@@ -1,9 +1,12 @@
-%div{:style => "font-family: ArizoniaRegular;font-size: 50px;color:#0B6FB7 !important;text-align:center;background: none repeat scroll 0 0 #0B6FB7 !important; height: 80px;width: 100%;"}
+%div{:style => "font-family: ArizoniaRegular;font-size: 50px;color:#0B6FB7 !important;text-align:center;background: none repeat scroll 0 0 #0B6FB7 !important; height: 80px;width: 100%;margin-bottom: 15px;"}
   %h1{:style => "font-size: 50px;color:#fff !important;line-height: 70px;"}
     Post Common Message On Facebook Wall Of Selected One
 
 - if user_signed_in?
-  = link_to "Logout","#{destroy_user_session_path}"
+
+  %div{:width=>"100%",:style => "text-align:right"}
+    = link_to "Logout","#{destroy_user_session_path}",:class => "btn"
+    -#%a.btn{:href => "#{destroy_user_session_path}"} Logout
   = form_tag('/post_on_page') do
     %table{:width => "100%",:align => "center",:cellpadding => 0,:cellspacing => 0,:border => "2px"}
       %tr
@@ -49,5 +52,6 @@
           %br
           = text_area_tag "message","",:style=>"width: 457px; height: 88px;background: none repeat scroll 0 0 white !important;"
     = submit_tag 'Post on selected wall(s)',:class => "button"
+
 - else
   = link_to "Click Here to Use this App",user_omniauth_authorize_path(:facebook)

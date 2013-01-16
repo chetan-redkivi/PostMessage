@@ -107,7 +107,7 @@ a, a:visited {
   text-decoration: underline;
 }
 a[href]:after {
-  content: " (" attr(href) ")";
+  //content: " (" attr(href) ")";
 }
 abbr[title]:after {
   content: " (" attr(title) ")";
@@ -136,7 +136,7 @@ h2, h3 {
   page-break-after: avoid;
 }
 body {
-  background-color: #E8E8E8 !important;
+  background-color: #F2F5F7 !important;
   color: #333333;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 14px;
@@ -1993,7 +1993,7 @@ button.close {
   -moz-border-left-colors: none;
   -moz-border-right-colors: none;
   -moz-border-top-colors: none;
-  background-color: whitesmoke;
+  background-color: #72B5E5 !important;
   background-image: linear-gradient(to bottom, white, #E6E6E6);
   background-repeat: repeat-x;
   border-color: #BBBBBB #BBBBBB #A2A2A2;
@@ -2002,7 +2002,7 @@ button.close {
   border-style: solid;
   border-width: 1px;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
-  color: #333333;
+  color: #FFFFFF !important;
   cursor: pointer;
   display: inline-block;
   font-size: 14px;
@@ -2011,6 +2011,7 @@ button.close {
   padding: 4px 12px;
   text-align: center;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  margin-bottom: 10px;
   vertical-align: middle;
 }
 .btn:hover, .btn:active, .btn.active, .btn.disabled, .btn[disabled] {

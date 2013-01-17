@@ -11,26 +11,31 @@ class HomeController < ApplicationController
 
   def post_on_page
     all_ids = []
-    if params["pageId"].present?
-      all_ids = all_ids + params["pageId"]
-    end
-
-    if params["groupId"].present?
-      all_ids = all_ids + params["groupId"]
-    end
-
-    if params["friendId"].present?
-      all_ids = all_ids + params["friendId"]
-    end
-
-    if all_ids.present?
-      token,uid = initialise_objects()
-      @graph = Koala::Facebook::API.new("#{token}")
-      all_ids.each do |id|
-        @graph.put_connections("#{id}", "feed", :message => params["message"])
+    begin
+      if params["pageId"].present?
+        all_ids = all_ids + params["pageId"]
       end
-    end
 
+      if params["groupId"].present?
+        all_ids = all_ids + params["groupId"]
+      end
+
+      if params["friendId"].present?
+        all_ids = all_ids + params["friendId"]
+      end
+
+      if all_ids.present?
+        token,uid = initialise_objects()
+        @graph = Koala::Facebook::API.new("#{token}")
+        all_ids.each do |id|
+          @graph.put_connections("#{id}", "feed", :message => params["message"])
+        end
+      end
+      flash[:notice] = "Message has been posted successfully."
+    rescue Exception => e
+      Rails.logger.info("=========================#{e.message}")
+      flash[:error] = e.message
+    end
     redirect_to root_url
   end
 

@@ -2,6 +2,18 @@
   %h1{:style => "font-size: 50px;color:#fff !important;line-height: 70px;"}
     Post Common Message On Selected Facebook Walls
 
+.success-error{:style => "width:100%"}
+  - if flash[:notice].present?
+    %ul
+      %li{:style => "font-size:20px !important;color:#0B6FB7 !important;"}
+        %span{:style => "font-size:20px !important;;color:green !important;;"}
+          = flash[:notice]
+  - if flash[:error].present?
+    %ul
+      %li{:style => "font-size:20px !important;color:#0B6FB7 !important;"}
+        %span{:style => "font-size:20px !important;;color:red !important;;"}
+          = flash[:error]
+
 - if user_signed_in?
 
   %div{:width=>"100%",:style => "text-align:right"}

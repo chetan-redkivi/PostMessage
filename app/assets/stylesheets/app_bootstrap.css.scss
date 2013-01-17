@@ -4706,3 +4706,13 @@ body {
   transition: transform 0.1s ease;
   width: 110px;
 }
+
+tr#analysis:hover td {
+  background-color:#DDDDDD !important;
+  cursor: pointer;
+}
+
+tr#analysis:hover td {
+  color:#3B5998;
+  cursor: pointer;
+}

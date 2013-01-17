@@ -22,15 +22,15 @@
   = form_tag('/post_on_page') do
     %table{:width => "100%",:align => "center",:cellpadding => 0,:cellspacing => 0,:border => "2px"}
       %tr
-        %th
+        %th{:style=>"background-color:#0B6FB7 !important;color:#fff !important"}
           Select Group(s)
-        %th
+        %th{:style=>"background-color:#0B6FB7 !important;color:#fff !important"}
           Select Page(s)
-        %th
+        %th{:style=>"background-color:#0B6FB7 !important;color:#fff !important"}
           Select Friend(s)
       %tr
         %td{:valign=>"top",:width => "33%"}
-          %div{:style => "height:400px;overflow-y:auto;margin: 0 25px;"}
+          %div{:style => "height:400px;overflow-y:auto;margin: 0 15px"}
             %table{:width => "100%",:align => "center",:cellpadding => 0,:cellspacing => 0}
               - @groups.each do |group|
                 %tr
@@ -38,8 +38,15 @@
                     = check_box_tag "groupId][]","#{group["id"]}"
                   %td
                     = group["name"]
+                  %td
+                    - if group["picture"]["is_silhouette"]
+                      - @img = group["picture"]["data"]["url"]
+                    - else
+                      - @img = "default-group.png"
+                    = link_to image_tag(@img),group["link"],:target => "_blank"
+
         %td{:width => "33%"}
-          %div{:style => "height:400px;overflow-y:auto;margin: 0 25px;"}
+          %div{:style => "height:400px;overflow-y:auto;margin: 0 15px"}
             %table{:width => "100%",:align => "center",:cellpadding => 0,:cellspacing => 0}
               - @pages.each do |page|
                 %tr
@@ -47,9 +54,11 @@
                     = check_box_tag "pageId][]","#{page["id"]}"
                   %td
                     = page["name"]
+                  %td
+                    = link_to image_tag(page["picture"]["data"]["url"]),page["link"],:target => "_blank"
 
         %td{:valign => "top"}
-          %div{:style => "height:400px;overflow-y:auto;margin: 0 25px;"}
+          %div{:style => "height:400px;overflow-y:auto;margin: 0 15px"}
             %table{:width => "100%",:align => "center",:cellpadding => 0,:cellspacing => 0}
               - @friends.each do |friend|
                 %tr
@@ -57,12 +66,16 @@
                     = check_box_tag "friendId[]",friend["id"]
                   %td
                     = friend["name"]
+                  %td
+                    = link_to image_tag(friend["picture"]["data"]["url"]),friend["link"],:target => "_blank"
+
       %tr
         %td{:valign => "top",:colspan=>"3",:style => "padding-left:30px;"}
-          %strong
-            Add Message
-          %br
-          = text_area_tag "message","",:style=>"width: 457px; height: 88px;background: none repeat scroll 0 0 white !important;"
+          %div{:style => "margin-left: 61%;"}
+            %strong
+              Add Message
+            %br
+            = text_area_tag "message","",:style=>"width: 457px; height: 88px;background: none repeat scroll 0 0 white !important;"
     = submit_tag 'Post on selected wall(s)',:class => "button"
 
 - else

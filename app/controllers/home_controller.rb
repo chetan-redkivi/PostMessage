@@ -2,8 +2,6 @@ class HomeController < ApplicationController
   def index
     if user_signed_in?
       token,uid = initialise_objects()
-      token  = "AAACGumRVIhYBABZCnmeqOcnPYtzgWXv489he6dvioSeHRFx7ugZCRfmZCSBYkV7ZBKZBL4tnUcnxChZCbNwFcBGYUoPcYqfKXsMROcJWcu4gZDZD"
-      uid = "1685211760"
       @graph = Koala::Facebook::API.new("#{token}")
 
       friends_profile = @graph.get_connections("#{uid}","friends","fields" => "id,name,picture,link")

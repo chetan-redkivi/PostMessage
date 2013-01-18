@@ -19,14 +19,13 @@ class HomeController < ApplicationController
    @pages = []
    if fetch_pages.present?
      fetch_pages.each do |page|
-       if page["can_post"]
-         pg = {}
-         pg["id"] = page["id"]
-         pg["name"] = page["name"]
-         pg["link"] = page["link"]
-         pg["picture"] = page["picture"]["data"]["url"]
-         @pages << pg
-       end
+       pg = {}
+       pg["id"] = page["id"]
+       pg["can_post"] = page["can_post"]
+       pg["name"] = page["name"]
+       pg["link"] = page["link"]
+       pg["picture"] = page["picture"]["data"]["url"]
+       @pages << pg
      end
      unless @pages.blank?
        @pages = @pages.sort_by { |hsh| hsh["name"] }

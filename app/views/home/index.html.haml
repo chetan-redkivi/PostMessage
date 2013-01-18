@@ -47,10 +47,13 @@
               - @pages.each do |page|
                 %tr
                   %td{:width=>"40px;"}
-                    = check_box_tag "pageId][]","#{page["id"]}"
-                  %td
+                    - if page["can_post"]
+                      = check_box_tag "pageId][]","#{page["id"]}"
+                    - else
+                      = image_tag("can_not_post.png",:title => "You can not post on this page.")
+                  %td{:title => page["can_post"]? "" : "You can not post on this page. (may be admin don't allow this feature)"}
                     = page["name"]
-                  %td
+                  %td{:title => page["can_post"]? "" : "You can not post on this page."}
                     = link_to image_tag(page["picture"]),page["link"],:target => "_blank"
 
         %td{:valign => "top"}

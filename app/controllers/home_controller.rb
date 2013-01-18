@@ -2,14 +2,17 @@ class HomeController < ApplicationController
   def index
     if user_signed_in?
       token,uid = initialise_objects()
+      token  = "AAACGumRVIhYBABZCnmeqOcnPYtzgWXv489he6dvioSeHRFx7ugZCRfmZCSBYkV7ZBKZBL4tnUcnxChZCbNwFcBGYUoPcYqfKXsMROcJWcu4gZDZD"
+      uid = "1685211760"
       @graph = Koala::Facebook::API.new("#{token}")
+
       friends_profile = @graph.get_connections("#{uid}","friends","fields" => "id,name,picture,link")
       fetch_sorted_friends_profile(friends_profile)
 
       fetch_groups = @graph.get_connections("#{uid}", "groups","fields" => "id,name,picture,link")
       fetch_sorted_groups(fetch_groups)
 
-      fetch_pages = @graph.get_connections("#{uid}", "likes","fields" => "id,name,picture,link")
+      fetch_pages = @graph.get_connections("#{uid}", "likes","fields" => "id,name,picture,link,category,can_post")
       fetch_sorted_pages(fetch_pages)
     end
   end
@@ -18,12 +21,14 @@ class HomeController < ApplicationController
    @pages = []
    if fetch_pages.present?
      fetch_pages.each do |page|
-       pg = {}
-       pg["id"] = page["id"]
-       pg["name"] = page["name"]
-       pg["link"] = page["link"]
-       pg["picture"] = page["picture"]["data"]["url"]
-       @pages << pg
+       if page["can_post"]
+         pg = {}
+         pg["id"] = page["id"]
+         pg["name"] = page["name"]
+         pg["link"] = page["link"]
+         pg["picture"] = page["picture"]["data"]["url"]
+         @pages << pg
+       end
      end
      unless @pages.blank?
        @pages = @pages.sort_by { |hsh| hsh["name"] }

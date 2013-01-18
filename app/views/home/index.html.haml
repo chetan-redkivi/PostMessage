@@ -39,11 +39,7 @@
                   %td
                     = group["name"]
                   %td
-                    - if group["picture"]["is_silhouette"]
-                      - @img = group["picture"]["data"]["url"]
-                    - else
-                      - @img = "default-group.png"
-                    = link_to image_tag(@img),group["link"],:target => "_blank"
+                    = link_to image_tag(group["picture"]),group["link"],:target => "_blank"
 
         %td{:width => "33%"}
           %div{:style => "height:400px;overflow-y:auto;margin: 0 15px"}
@@ -55,19 +51,19 @@
                   %td
                     = page["name"]
                   %td
-                    = link_to image_tag(page["picture"]["data"]["url"]),page["link"],:target => "_blank"
+                    = link_to image_tag(page["picture"]),page["link"],:target => "_blank"
 
         %td{:valign => "top"}
           %div{:style => "height:400px;overflow-y:auto;margin: 0 15px"}
             %table{:width => "100%",:align => "center",:cellpadding => 0,:cellspacing => 0}
-              - @friends.each do |friend|
+              - @friends_profile.each do |friend|
                 %tr
                   %td
                     = check_box_tag "friendId[]",friend["id"]
                   %td
                     = friend["name"]
                   %td
-                    = link_to image_tag(friend["picture"]["data"]["url"]),friend["link"],:target => "_blank"
+                    = link_to image_tag(friend["picture"]),friend["link"],:target => "_blank"
 
       %tr
         %td{:valign => "top",:colspan=>"3",:style => "padding-left:30px;"}

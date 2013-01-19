@@ -56,14 +56,16 @@
           Select Friend(s)
       %tr
         %td{:valign=>"top",:width => "33%"}
+          %table{:width => "100%",:align => "center",:cellpadding => 0,:cellspacing => 0,:style => "margin: 0 15px"}
+            %tr
+              %td{:width=>"40px;"}
+                = check_box_tag 'checkAllGroups','checkAllGroups',false
+              %td
+                %b
+                  = "Select all (#{@groups.count}) groups"
+
           %div{:style => "height:400px;overflow-y:auto;margin: 0 15px"}
             %table{:width => "100%",:align => "center",:cellpadding => 0,:cellspacing => 0}
-              %tr
-                %td{:width=>"40px;"}
-                  = check_box_tag 'checkAllGroups','checkAllGroups',false
-                %td{:colspan => 2}
-                  %b
-                    = "Select all (#{@groups.count}) groups"
               - @groups.each do |group|
                 %tr
                   %td{:width=>"40px;"}
@@ -74,14 +76,16 @@
                     = link_to image_tag(group["picture"]),group["link"],:target => "_blank"
 
         %td{:width => "33%"}
+          %table{:width => "100%",:align => "center",:cellpadding => 0,:cellspacing => 0,:style => "margin: 0 15px"}
+            %tr
+              %td{:width=>"40px;"}
+                = check_box_tag 'checkAllPages','checkAllPages',false
+              %td
+                %b
+                  = "Select all (#{@pages.count}) pages"
+
           %div{:style => "height:400px;overflow-y:auto;margin: 0 15px"}
             %table{:width => "100%",:align => "center",:cellpadding => 0,:cellspacing => 0}
-              %tr
-                %td{:width=>"40px;"}
-                  = check_box_tag 'checkAllPages','checkAllPages',false
-                %td{:colspan => 2}
-                  %b
-                    = "Select all (#{@pages.count}) pages"
               - @pages.each do |page|
                 %tr
                   %td{:width=>"40px;"}
@@ -95,14 +99,16 @@
                     = link_to image_tag(page["picture"]),page["link"],:target => "_blank"
 
         %td{:valign => "top"}
+          %table{:width => "100%",:align => "center",:cellpadding => 0,:cellspacing => 0,:style => "margin: 0 15px"}
+            %tr
+              %td{:width=>"40px;"}
+                = check_box_tag 'checkAllFriends','checkAllFriends',false
+              %td
+                %b
+                  = "Select all (#{@friends_profile.count}) friends"
+
           %div{:style => "height:400px;overflow-y:auto;margin: 0 15px"}
             %table{:width => "100%",:align => "center",:cellpadding => 0,:cellspacing => 0}
-              %tr
-                %td{:width=>"40px;"}
-                  = check_box_tag 'checkAllFriends','checkAllFriends',false
-                %td{:colspan => 2}
-                  %b
-                    = "Select all (#{@friends_profile.count}) friends"
               - @friends_profile.each do |friend|
                 %tr
                   %td

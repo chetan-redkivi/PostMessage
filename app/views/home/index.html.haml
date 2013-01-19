@@ -1,7 +1,30 @@
+:javascript
+  $(document).ready(function(){
+    $("#checkAllGroups").click(function()
+    {
+      var checked_status = this.checked;
+      $('.sel_group').attr('checked', checked_status);
+    });
+  });
+  $(document).ready(function(){
+    $("#checkAllPages").click(function()
+    {
+      var checked_status = this.checked;
+      $('.sel_page').attr('checked', checked_status);
+    });
+  });
+  $(document).ready(function(){
+    $("#checkAllFriends").click(function()
+    {
+      var checked_status = this.checked;
+      $('.sel_friend').attr('checked', checked_status);
+    });
+  });
+
+
 %div{:style => "font-family: ArizoniaRegular;font-size: 50px;color:#0B6FB7 !important;text-align:center;background: none repeat scroll 0 0 #0B6FB7 !important; height: 80px;width: 100%;margin-bottom: 15px;"}
   %h1{:style => "font-size: 50px;color:#fff !important;line-height: 70px;"}
     Post Common Message On Selected Facebook Walls
-
 .success-error{:style => "width:100%"}
   - if flash[:notice].present?
     %ul
@@ -16,11 +39,14 @@
 
 - if user_signed_in?
 
-  %div{:width=>"100%",:style => "text-align:right"}
+  %div{:width => "50%",:style => "float:left;height:52px;"}
+    = image_tag @user_profile["picture"]["data"]["url"]
+    = @user_profile["name"]
+  %div{:width => "50%",:style => "text-align:right;height:52px;"}
     = link_to "Logout","#{destroy_user_session_path}",:class => "btn"
     -#%a.btn{:href => "#{destroy_user_session_path}"} Logout
   = form_tag('/post_on_page') do
-    %table{:width => "100%",:align => "center",:cellpadding => 0,:cellspacing => 0,:border => "2px"}
+    %table{:width => "100%",:align => "center",:cellpadding => 0,:cellspacing => 0,:border => "2px",:name => "table",:style => "float:left;"}
       %tr
         %th{:style=>"background-color:#0B6FB7 !important;color:#fff !important"}
           Select Group(s)
@@ -32,10 +58,16 @@
         %td{:valign=>"top",:width => "33%"}
           %div{:style => "height:400px;overflow-y:auto;margin: 0 15px"}
             %table{:width => "100%",:align => "center",:cellpadding => 0,:cellspacing => 0}
+              %tr
+                %td{:width=>"40px;"}
+                  = check_box_tag 'checkAllGroups','checkAllGroups',false
+                %td{:colspan => 2}
+                  %b
+                    = "Select all (#{@groups.count}) groups"
               - @groups.each do |group|
                 %tr
                   %td{:width=>"40px;"}
-                    = check_box_tag "groupId][]","#{group["id"]}"
+                    = check_box_tag "groupId[]","#{group["id"]}",false,:id=>'iId',:class => "sel_group"
                   %td
                     = group["name"]
                   %td
@@ -44,13 +76,19 @@
         %td{:width => "33%"}
           %div{:style => "height:400px;overflow-y:auto;margin: 0 15px"}
             %table{:width => "100%",:align => "center",:cellpadding => 0,:cellspacing => 0}
+              %tr
+                %td{:width=>"40px;"}
+                  = check_box_tag 'checkAllPages','checkAllPages',false
+                %td{:colspan => 2}
+                  %b
+                    = "Select all (#{@pages.count}) pages"
               - @pages.each do |page|
                 %tr
                   %td{:width=>"40px;"}
-                    - if page["can_post"]
-                      = check_box_tag "pageId][]","#{page["id"]}"
-                    - else
-                      = image_tag("can_not_post.png",:title => "You can not post on this page.")
+                    -#- if page["can_post"]
+                    = check_box_tag "pageId[]","#{page["id"]}",false,:id=>'iId',:class => "sel_page"
+                    -#- else
+                    -#  = image_tag("can_not_post.png",:title => "You can not post on this page.")
                   %td{:title => page["can_post"]? "" : "You can not post on this page. (may be admin don't allow this feature)"}
                     = page["name"]
                   %td{:title => page["can_post"]? "" : "You can not post on this page."}
@@ -59,10 +97,16 @@
         %td{:valign => "top"}
           %div{:style => "height:400px;overflow-y:auto;margin: 0 15px"}
             %table{:width => "100%",:align => "center",:cellpadding => 0,:cellspacing => 0}
+              %tr
+                %td{:width=>"40px;"}
+                  = check_box_tag 'checkAllFriends','checkAllFriends',false
+                %td{:colspan => 2}
+                  %b
+                    = "Select all (#{@friends_profile.count}) friends"
               - @friends_profile.each do |friend|
                 %tr
                   %td
-                    = check_box_tag "friendId[]",friend["id"]
+                    = check_box_tag "friendId[]",friend["id"],false,:id=>'iId',:class => "sel_friend"
                   %td
                     = friend["name"]
                   %td

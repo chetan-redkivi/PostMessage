@@ -3,7 +3,7 @@ class HomeController < ApplicationController
     if user_signed_in?
       token,uid = initialise_objects()
       @graph = Koala::Facebook::API.new("#{token}")
-
+      @user_profile =  @graph.get_object("me",:fields => "name,picture")
       friends_profile = @graph.get_connections("#{uid}","friends","fields" => "id,name,picture,link")
       fetch_sorted_friends_profile(friends_profile)
 
@@ -19,13 +19,14 @@ class HomeController < ApplicationController
    @pages = []
    if fetch_pages.present?
      fetch_pages.each do |page|
-       pg = {}
-       pg["id"] = page["id"]
-       pg["can_post"] = page["can_post"]
-       pg["name"] = page["name"]
-       pg["link"] = page["link"]
-       pg["picture"] = page["picture"]["data"]["url"]
-       @pages << pg
+       if page["can_post"]
+         pg = {}
+         pg["id"] = page["id"]
+         pg["name"] = page["name"]
+         pg["link"] = page["link"]
+         pg["picture"] = page["picture"]["data"]["url"]
+         @pages << pg
+       end
      end
      unless @pages.blank?
        @pages = @pages.sort_by { |hsh| hsh["name"] }
@@ -78,6 +79,7 @@ class HomeController < ApplicationController
 
   def post_on_page
     all_ids = []
+    render :text => params["groupId"].count.inspect and return false
     begin
       if params["message"].present?
         if params["pageId"].present?

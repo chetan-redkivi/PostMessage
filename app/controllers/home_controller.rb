@@ -79,7 +79,6 @@ class HomeController < ApplicationController
 
   def post_on_page
     all_ids = []
-    render :text => params["groupId"].count.inspect and return false
     begin
       if params["message"].present?
         if params["pageId"].present?
